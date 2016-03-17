@@ -6,6 +6,7 @@ inc_Class("credentials");
 abstract class absCredentialManager implements iCredentialManager{
     protected $un;
     protected $pw;
+    protected $unhashed;
     protected $email;
     
     protected function cleanInput($theInput) {
@@ -42,6 +43,7 @@ abstract class absCredentialManager implements iCredentialManager{
     }
     
     public function setPassword($newPW) {  
+        $this->unhashed = $newPW;
         $password = $this->cleanInput($newPW);
         $this->pw = password_hash($password, PASSWORD_DEFAULT);
     }
@@ -54,7 +56,11 @@ abstract class absCredentialManager implements iCredentialManager{
     public function getPassword() {
         return $this->pw;
     }
-
+    
+    public function getUnhashed() {
+        return $this->unhashed;
+    }
+    
     public function getUsername() {
         return $this->un;
     }

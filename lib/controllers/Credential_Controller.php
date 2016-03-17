@@ -41,47 +41,30 @@ class Credential_Controller extends absController {
     
     public function isUsernameUnique() {
         $this->setQuery('call proc_isUsernameUnique("' . $this->credManager->getUsername() . '")');
-        //$c = $this->getDB()->getConnection();
-//        if( $c->query($q)->fetch_assoc()['valid'][0] == "1") {
-//            return true;
-//        } else {
-//            return false;
-//        }
         
-        
-//        return $c->query($q)->fetch_assoc()['valid'][0] == "1";
-       // return $this->getResult() == "1";
         $result = $this->getResult()->fetch_assoc();
         
-        return $result['valid'] == "1";
-        //return $this->getOutput()['valid'][0] == "1";
-        
-        
-        
-//            return true;
-//        } else {
-//            return false;
-//        }
-        //var_dump($c->query($q)->fetch_assoc()['valid'][0]);
-        //echo $c->query($q)->fetch_assoc()['valid'][0];
-        
+        return $result['valid'] == "1";        
     }    
    
-    public function createUser() 
-    {
+    public function createUser() {
         if ($this->isUsernameUnique()) {
-            $thecon = $this->getDB()->getConnection();
  
             $this->setQuery('call proc_addUser("' . $this->credManager->getUsername() . '","' . $this->credManager->getPassword() . '","' . $this->credManager->getEmail() . '")');
-            $this->getResult();//query($this->getQuery());
+            $this->getResult();
 
             $this->setQuery("Select * from user");
             $this->getOutput();
         }
-//        if ($this->isUsernameUnique()) {
-//            echo "unique";
-//        }
-       
+    }
+    
+    public function isUserValid() {
+        $this->setQuery('call proc_getPW("' . $this->credManager->getUsername() . '")');
+        
+        $r = $this->getResult()->fetch_assoc();
+        
+        $hashed = $r['user_password'];
+        return password_verify($this->credManager->getUnhashed(), $hashed);
     }
     
     

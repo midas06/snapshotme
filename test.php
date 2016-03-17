@@ -5,23 +5,17 @@ inc_All();
 $db = (new DBConnection("127.0.0.1:3306", "snapshotadmin", "Sn4psh0t_!", "snapshotMe"));
 $dbc = new DB_Controller($db);
 
-//$dbc->setQuery('select * from view_allPhotos');
-//$dbc->getOutput();
-//
-//$dbc->setQuery('call proc_getallbyuser("user1")');
-//$dbc->getOutput();
-
-//$dbc->setQuery('call proc_uniqueUser("user1")');
-//$dbc->getOutput();
-
-
 $cont = new Credential_Controller($db);
+//
+$cont->setUN("testuser1");
+$cont->setPW("password1");
+echo $cont->isUserValid();
+////$cont->setEmail("abc@gmail.com");
+////var_dump($cont->createUser());
+////$cont->createUser();
 
-$cont->setUN("user8");
-$cont->setPW("password123");
-$cont->setEmail("abc@gmail.com");
-//var_dump($cont->createUser());
-$cont->createUser();
+//
+////$cont->validateUser();
 //$cont->isUsernameUnique();
 //var_dump($cont->isUsernameUnique());
 
@@ -29,3 +23,9 @@ $cont->createUser();
 //var_dump($cont->confirmCreatedUser());
 //$cont->setQuery("select * from user");
 //$cont->getOutput();
+
+//$pw = "password";
+////$hashed = password_hash($pw, PASSWORD_DEFAULT);
+//$hashed = '$2y$10$qKwTpbjvKl8omLKqGAtuCuZkdJxV539Bljzd9iDneyMC2r8Tnw0vi';
+//echo $hashed;
+//var_dump(password_verify($pw, $hashed));
