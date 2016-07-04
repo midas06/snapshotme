@@ -58,14 +58,31 @@ class Credential_Controller extends absController {
         }
     }
     
+//    public function isUserValid() {
+//        $this->setQuery('call proc_getPW("' . $this->credManager->getUsername() . '")');
+//        
+//        $r = $this->getResult()->fetch_assoc();
+//        
+//        $hashed = $r['user_password'];
+//        return password_verify($this->credManager->getUnhashed(), $hashed);
+//    }
+    
     public function isUserValid() {
-        $this->setQuery('call proc_getPW("' . $this->credManager->getUsername() . '")');
+        $this->setQuery('call proc_getPW("' . $this->credManager->getEmail() . '")');
         
         $r = $this->getResult()->fetch_assoc();
         
         $hashed = $r['user_password'];
-        return password_verify($this->credManager->getUnhashed(), $hashed);
+        if (password_verify($this->credManager->getUnhashed(), $hashed) == 1) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
     
+    public function validateUser() {
+        //$this->setQuery
+                echo('call proc_verifyUser("' . $this->credManager->getEmail() . '","' . $this->credManager->getPassword() . '")');
+    }
     
 }

@@ -2,7 +2,8 @@
 
 require_once 'lib/include.inc';
 inc_All();
-$db = (new DBConnection("127.0.0.1:3306", "snapshotadmin", "Sn4psh0t_!", "snapshotMe"));
+$db = (new DBConnection("127.0.0.1:8800", "snapshotadmin", "Sn4psh0t_!", "snapshotMe"));
+//$db = (new DBConnection("127.0.0.1:3306", "snapshotadmin", "Sn4psh0t_!", "snapshotMe"));
 
 //$cont = new Credential_Controller($db);
 
